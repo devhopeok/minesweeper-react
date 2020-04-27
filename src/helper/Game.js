@@ -18,11 +18,13 @@ class Game {
     this._seedBomb();
   }
 
-  addFlag() {
+  addFlag(cell) {
+    cell.hasFlag = true;
     this.flagCount++;
   }
 
-  removeFlag() {
+  removeFlag(cell) {
+    cell.hasFlag = false;
     this.flagCount--;
   }
 
@@ -30,13 +32,14 @@ class Game {
     cell.isOpen = true;
     if (cell.value === '*') {
       this.gameOver = true;
-      console.log('game over');
       return;
     }
     if (cell.value) return;
 
     cell.neighbors.forEach(neighbor => {
-      if (!neighbor.isOpen && neighbor.value !== '*') this.reveal(neighbor);
+      if (!neighbor.isOpen && neighbor.value !== '*' && !neighbor.hasFlag) {
+        this.reveal(neighbor);
+      }
     });
   }
 
