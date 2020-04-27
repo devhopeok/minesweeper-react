@@ -7,13 +7,15 @@ class Game {
     this.bombCount = bombCount;
     this.flagCount = 0;
     this.gameOver = false;
-    this.board = []
+    this.board = this._get2DGrid(this.rowLength, this.colLength);
 
-    this.initialize();
+    this._seedBomb();
   }
 
-  initialize() {
+  reset() {
     this.board = this._get2DGrid(this.rowLength, this.colLength);
+    this.flagCount = 0;
+    this.gameOver = false;
 
     this._seedBomb();
   }

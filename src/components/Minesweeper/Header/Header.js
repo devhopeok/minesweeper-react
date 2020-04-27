@@ -5,7 +5,7 @@ function Header(props) {
   return (
     <div className="header">
       <p className="display">{props.bombCount}</p>
-      <button>Start</button>
+      <button onClick={props.restart}>Start</button>
       <p className="display">015</p>
     </div>
   )
