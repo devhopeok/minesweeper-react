@@ -20,7 +20,7 @@ function Minesweeper() {
   }
 
   const reveal = cell => {
-    if (game.gameOver) return;
+    if (game.isOver) return;
 
     game.reveal(cell);
     setUpdated(!updated);
@@ -43,9 +43,9 @@ function Minesweeper() {
       <Header
         bombCount={game.bombCount - game.flagCount}
         restart={restartGame}
+        gameOver={game.isOver}
       />
       <Board board={game.board} reveal={reveal} flag={flagHandler}/>
-      <p><strong>{game.gameOver ? 'Game Over' : ''}</strong></p>
     </div>
   )
 }

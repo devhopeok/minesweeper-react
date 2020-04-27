@@ -6,7 +6,7 @@ class Game {
     this.colLength = cols;
     this.bombCount = bombCount;
     this.flagCount = 0;
-    this.gameOver = false;
+    this.isOver = false;
     this.board = this._get2DGrid(this.rowLength, this.colLength);
 
     this._seedBomb();
@@ -15,7 +15,7 @@ class Game {
   reset() {
     this.board = this._get2DGrid(this.rowLength, this.colLength);
     this.flagCount = 0;
-    this.gameOver = false;
+    this.isOver = false;
 
     this._seedBomb();
   }
@@ -33,7 +33,7 @@ class Game {
   reveal(cell) {
     cell.isOpen = true;
     if (cell.value === '*') {
-      this.gameOver = true;
+      this.isOver = true;
       return;
     }
     if (cell.value) return;
