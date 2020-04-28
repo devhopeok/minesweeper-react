@@ -19,7 +19,11 @@ function Cell(props) {
 
   const displayValue = () => {
     if (cell.isOpen) {
-      return <span className={`open val-${cell.value}`}>{cell.value || ''}</span>
+      if (cell.value === '*') {
+        return <span className={`open bomb`}>*</span>
+      } else {
+        return <span className={`open val-${cell.value}`}>{cell.value || ''}</span>
+      }
     } else if (cell.hasFlag) {
       return <span>x</span>
     } else {

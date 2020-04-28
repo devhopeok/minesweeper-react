@@ -16,6 +16,8 @@
   font-weight: bold;
 }
 
+.bomb { background-color: red; }
+
 .val-1 { color: blue; }
 .val-2 { color: green; }
 .val-3 { color: red; }
