@@ -3,6 +3,8 @@ import './Cell.css';
 
 function Cell(props) {
   const { cell } = props;
+  const bombUnicode = '\u2600';
+  const flagUnicode = '\u2691';
 
   const clickHandler = e => {
     console.log('click', e);
@@ -20,12 +22,12 @@ function Cell(props) {
   const displayValue = () => {
     if (cell.isOpen) {
       if (cell.value === '*') {
-        return <span className={`open bomb`}>*</span>
+        return <span className={`open bomb`}>{bombUnicode}</span>
       } else {
         return <span className={`open val-${cell.value}`}>{cell.value || ''}</span>
       }
     } else if (cell.hasFlag) {
-      return <span>x</span>
+      return <span className="flag">{flagUnicode}</span>
     } else {
       return <span></span>
     }
