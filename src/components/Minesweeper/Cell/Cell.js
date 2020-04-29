@@ -7,19 +7,17 @@ function Cell(props) {
   const flagUnicode = '\u2691';
 
   const clickHandler = e => {
-    console.log('click', e);
     if (props.cell.isOpen || props.cell.hasFlag) return;
 
     props.reveal(props.cell);
   }
 
-  const rightHandler = e => {
-    console.log('right', e);
+  const rightClickHandler = e => {
     e.preventDefault();
     props.flag(props.cell);
   }
 
-  const displayValue = () => {
+  const displayCellContent = () => {
     if (cell.isOpen) {
       if (cell.value === '*') {
         return <span className={`open bomb`}>{bombUnicode}</span>
@@ -34,8 +32,8 @@ function Cell(props) {
   }
 
   return (
-    <div className="cell" onClick={clickHandler} onContextMenu={rightHandler} >
-      {displayValue()}
+    <div className="cell" onClick={clickHandler} onContextMenu={rightClickHandler} >
+      {displayCellContent()}
     </div>
   )
 }

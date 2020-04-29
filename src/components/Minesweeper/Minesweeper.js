@@ -10,9 +10,7 @@ const game = new Game(9, 9, 10);
 function Minesweeper() {
   const [updated, setUpdated] = useState(false);
 
-  useEffect(() => {
-    console.log('test effect');
-  }, [updated])
+  useEffect(() => {}, [updated])
 
   const restartGame = () => {
     game.reset();
@@ -24,8 +22,6 @@ function Minesweeper() {
 
     game.reveal(cell);
     setUpdated(!updated);
-    console.log('======');
-    console.log(game.print());
   }
 
   const flagHandler = cell => {
@@ -39,7 +35,6 @@ function Minesweeper() {
 
   return (
     <div className="minesweeper">
-      {console.log('render')}
       <div className="minesweeper-container">
         <Header
           bombCount={game.bombCount - game.flagCount}

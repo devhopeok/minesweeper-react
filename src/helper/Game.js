@@ -1,5 +1,8 @@
 import Cell from './Cell';
 
+// ===================
+//  Handles Game Logic
+// ===================
 class Game {
   constructor(rows, cols, bombCount) {
     this.rowLength = rows;
@@ -30,6 +33,7 @@ class Game {
     this.flagCount--;
   }
 
+  // reveal a cell, and open neighboring cells recursively if cell is empty
   reveal(cell) {
     cell.isOpen = true;
     if (cell.value === '*') {
@@ -45,6 +49,7 @@ class Game {
     });
   }
 
+  // helper method to create 2D array for board
   _get2DGrid(rows, cols) {
     let grid = (new Array(rows));
 
@@ -55,6 +60,7 @@ class Game {
     return grid;
   }
 
+  // helper method to seed bombs randomly and add numeric hints on board
   _seedBomb() {
     let bombCounter = this.bombCount;
 
@@ -69,7 +75,7 @@ class Game {
       }
     }
 
-    // initialize empty spaces with Cell objects
+    // initialize empty spaces with Cell objects first
     for (let row = 0; row < this.board.length; row++) {
       for (let col = 0; col < this.board[row].length; col++) {
         if (!this.board[row][col]) {
@@ -81,10 +87,21 @@ class Game {
     this._populateHints();
   }
 
+  // populate numeric hints on board
+  _populateHints() {
+    for (let row = 0; row < this.board.length; row++) {
+      for (let col = 0; col < this.board[row].length; col++) {
+        this._getNeighbors(this.board[row][col], row, col);
+      }
+    }
+  }
+
+  // count bombs from neighbors, and push all neighboring cell objects into
+  // current cell for future reference
   _getNeighbors(cell, rowPos, colPos) {
     // position difference of neighbors relative to current cell position
     let deltaPosition = [
-    // row, col
+    //[row, col]
       [-1, -1], // top left
       [-1, 0],  // top
       [-1, 1],  // top right
@@ -104,9 +121,9 @@ class Game {
       if (nRowPos > -1 && nRowPos < this.rowLength) {
         let neighbor = this.board[nRowPos][nColPos];
         if (neighbor) {
-          cell.neighbors.push(neighbor);
+          cell.neighbors.push(neighbor); // populate cell neighbors list
 
-          if (neighbor.value === '*') bombCount++;
+          if (neighbor.value === '*') bombCount++; // while at it, count bombs for hint
         }
       }
     });
@@ -114,14 +131,7 @@ class Game {
     if (cell.value !== '*') cell.value = bombCount;
   }
 
-  _populateHints() {
-    for (let row = 0; row < this.board.length; row++) {
-      for (let col = 0; col < this.board[row].length; col++) {
-        this._getNeighbors(this.board[row][col], row, col);
-      }
-    }
-  }
-
+  // convenient method to print out board values in console, not used in actual app
   print() {
     this.board.forEach(row => {
       let str = '';
