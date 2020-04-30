@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Header from './Header/Header';
-import Cell from './Cell/Cell';
+import Header from './Header';
+import Cell from './Cell';
 import Game from '../../helper/Game';
+import styled from 'styled-components';
 
-import './Minesweeper.css';
+const Wrapper = styled.div`
+  text-align: center;
+`;
+
+const InnerWrapper = styled.div`
+  display: inline-block;
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const game = new Game(9, 9, 10);
 
@@ -34,8 +46,8 @@ function Minesweeper() {
   }
 
   return (
-    <div className="minesweeper">
-      <div className="minesweeper-container">
+    <Wrapper>
+      <InnerWrapper>
         <Header
           bombCount={game.bombCount - game.flagCount}
           restart={restartGame}
@@ -43,20 +55,20 @@ function Minesweeper() {
           />
         <div className="board">
           { game.board.map((row, id) =>
-            <div key={id} className="row">
+            <Row key={id}>
               {row.map((col, id) =>
                 <Cell
                   key={id}
                   cell={col}
                   reveal={reveal}
                   flag={flagHandler}
-                  />
+                />
               )}
-            </div>
+            </Row>
           )}
         </div>
-      </div>
-    </div>
+      </InnerWrapper>
+    </Wrapper>
   )
 }
 
